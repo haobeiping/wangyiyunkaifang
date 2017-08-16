@@ -9,6 +9,11 @@ export default new Router({
       path: '/player/:id',
       name: 'player',
       component: require('../views/Player.vue')
+    },
+    {
+      path: '/lyric',
+      name: 'Lyric',
+      component: require('../views/Lyric.vue')
     }
   ]
 })

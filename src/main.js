@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'normalize.css'
+import 'jquery'
+import 'bootstrap/dist/css/bootstrap.css'
 Vue.config.productionTip = false
 
 import vueResource from 'vue-resource'
