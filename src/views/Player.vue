@@ -218,6 +218,7 @@
   export default{
     data () {
       return {
+        lys: true,
         stop: false,
         show: true,
         musicInfo: {},
