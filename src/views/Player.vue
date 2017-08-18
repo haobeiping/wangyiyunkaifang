@@ -32,7 +32,9 @@
       </div>
       <div class="Progressbar" >
         <p class="start">{{currentFormatTime}}</p>
-        <input class="move" @input="onProgressChange" v-model="progress" type="range"/>
+        <div class="input_box">
+           <input class="move" @input="onProgressChange" v-model="progress" type="range"/>
+        </div>
         <p class="end">{{totalFormatTime}}</p>
       </div>
       <div class="control">
@@ -73,7 +75,7 @@
       formatTimeM2S (timeStr) {
         let temp = timeStr.split(':')
         return Number(temp[0]) * 60 + Number(temp[1])
-      },
+      },  // 计算时间
       formatTimeS2M (second) {
         var m = second / 60
         m = Math.floor(m)
@@ -82,7 +84,7 @@
         s = Math.floor(s)
         s = s < 10 ? '0' + s : s
         return m + ':' + s
-      },
+      },  // 时间滚动
       timeupdate (event) {
         if (this.lyricsArr[this.currentLyricsLiIndex].time < event.target.currentTime && this.lyricsArr[this.currentLyricsLiIndex + 1].time < event.target.currentTime) {
           this.currentLyricsLiIndex ++
@@ -91,7 +93,7 @@
           this.progress = event.target.currentTime / event.target.duration * 100
         }
         this.currentFormatTime = this.formatTimeS2M(event.target.currentTime)
-      },
+      },  // 暂停和播放事件
       toggleState () {
         let audio = this.$refs['audio']
         if (this.playing) {
@@ -100,10 +102,10 @@
           audio.play()
         }
         this.playing = !this.playing
-      },
+      },  // 歌曲加载时的事件
       onCanPlay (event) {
         this.totalFormatTime = this.formatTimeS2M(event.target.duration)
-      },
+      },   // 改变进度条的播放事件
       onProgressChange (event) {
         let audio = this.$refs['audio']
         audio.play()
@@ -135,7 +137,7 @@
       this.$http.get('lyric', {
         params: {
           id: this.$route.params.id
-        }
+        } // 获取时间并切割歌词
       }).then(res => {
         let lyricStr = res.body.lrc.lyric
         let arr = lyricStr.split(/\s\[/)
@@ -322,11 +324,7 @@
     left: 10px;
   }
   .Progressbar input{
-    padding: 0px 5px;
     color: #6D6F6D;
-    position: absolute;
-    top: 0px;
-    left: 45px;
     width: 100%;
   }
   .Progressbar .end{
@@ -341,9 +339,12 @@
     float: right;
   }
   .fade-enter-active, .fade-leave-active {
-  transition: opacity .1s
+  transition: opacity 0.1s
 }
   .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
   opacity: 0
 }
+  .input_box{
+  padding: 0px 45px;
+  }
 </style>

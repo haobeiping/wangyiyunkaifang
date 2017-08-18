@@ -4,13 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'normalize.css'
-import 'jquery'
+
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap'
 Vue.config.productionTip = false
 
 import vueResource from 'vue-resource'
 Vue.use(vueResource)
-Vue.http.options.root = 'http://localhost:4000/'
+Vue.http.options.root = 'http://192.168.1.158:4000/'
 
 /* eslint-disable no-new */
 new Vue({
