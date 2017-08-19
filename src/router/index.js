@@ -11,11 +11,6 @@ export default new Router({
       component: require('../views/Player.vue')
     },
     {
-      path: '/lyric',
-      name: 'Lyric',
-      component: require('../views/Lyric.vue')
-    },
-    {
       path: '/homepage',
       name: 'homepage',
       component: require('../views/Homepage.vue')
