@@ -59,7 +59,7 @@
   </a>
 </div>
   <div class='anniu'>
-    <ul>.
+    <ul>
       <li><a href='javascript:;'><img src='../images/音箱.png'><p>私人FM</p></a></li>
       <li><a href='javascript:;'><img src='../images/日历.png'><p>每日歌曲推荐</p></a></li>
       <li><a href='javascript:;'><img src='../images/排行.png'><p>云音乐热歌榜</p></a></li>
@@ -72,11 +72,15 @@
     <ul class="list">
       <li>
         <div class="music_box">
-          <img src="../images/toplist_26_300_203605063.jpg" height="100" width="100">
+          <div class="img_box">
+            <img src="../images/toplist_26_300_203605063.jpg" height="100" width="100">
+          </div>
             <div class="title">
               <h4>{{paihang}}</h4>
               <ul>
-                <li v-for="item in gequpaihang"><p>1<span>{{item.value}}</span></p></li>
+                <li><p>1.<span>{{this.gequpaihang.gequpaihangOne}}</span></p></li>
+                <li><p>2.<span>{{this.gequpaihang.gequpaihangTwo}}</span></p></li>
+                <li><p>3.<span>{{this.gequpaihang.gequpaihangThree}}</span></p></li>
               </ul>
             </div>
         </div>
@@ -107,10 +111,10 @@ export default{
       }
     }).then(res => {
       this.paihang = res.body.result.name
-      this.gequpaihang.gequpaihang = res.body.result.tracks[0].name
+      this.gequpaihang.gequpaihangOne = res.body.result.tracks[0].name
       this.gequpaihang.gequpaihangTwo = res.body.result.tracks[1].name
       this.gequpaihang.gequpaihangThree = res.body.result.tracks[2].name
-      console.log(this.gequpaihang)
+      console.log(this.gequpaihang.gequpaihangOne)
     })
   }
 }
@@ -194,32 +198,55 @@ body ul li{
     padding: 5px;
   }
   .RecommendedList p{
-    padding-top: 10px;
     font-size: 18px;
   }
   .RecommendedList ul li{
-     background-color: #fff;
+    width: 100%;
+    background-color: #fff;
     overflow: hidden;
   }
+  .img_box{
+    float: left;
+    overflow: hidden;
+    width: 30%;
+  }
   .carousel-inner img{
+    height: 100%;
     width: 100%;
   }
   .music_box{
+    overflow: hidden;
     width: 100%;
   }
   .music_box img{
     float: left;
   }
   .list{
+    overflow: hidden;
     padding: 0px;
   }
+  .list li{
+    float: left;
+  }
+  .title{
+    float:left;
+    text-align: center;
+    width: 70%;
+  }
+  .title ul{
+    padding: 0;
+    margin-top: -8px;
+    overflow: hidden;
+   }
   .title ul li{
     float: left;
-    padding-left: 10px;
+  }
+  .title ul li p{
+    margin: 0px;
   }
   .title_font{
     padding: 5px;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
   }
 </style>
