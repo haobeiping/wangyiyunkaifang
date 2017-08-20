@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 
 import vueResource from 'vue-resource'
 Vue.use(vueResource)
-Vue.http.options.root = 'http://192.168.7.135:4000/'
+Vue.http.options.root = 'http://127.0.0.1:4000/'
 
 /* eslint-disable no-new */
 new Vue({
