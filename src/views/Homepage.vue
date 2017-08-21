@@ -247,6 +247,6 @@ body ul li{
   .title_font{
     padding: 5px;
     text-align: center;
-    font-size: 20px;
+    font-size: 21px;
   }
 </style>
