@@ -70,17 +70,17 @@
   <div class='RecommendedList'>
    
     <ul class="list">
-      <li>
+      <li v-for="rank in musicRank">
         <div class="music_box">
           <div class="img_box">
-            <img src="../images/toplist_26_300_203605063.jpg" height="100" width="100">
+            <img :src="rank.coverImgUrl" height="100" width="100">
           </div>
             <div class="title">
-              <h4>{{paihang}}</h4>
+              <h4>{{rank.title}}</h4>
               <ul>
-                <li><p>1.<span>{{this.gequpaihang.gequpaihangOne}}</span></p></li>
-                <li><p>2.<span>{{this.gequpaihang.gequpaihangTwo}}</span></p></li>
-                <li><p>3.<span>{{this.gequpaihang.gequpaihangThree}}</span></p></li>
+                <router-link tag="li" v-for="(musicItem,index) in rank.top3" :to="{name: 'player', params:{id: musicItem.id}}">
+                  <p>{{index + 1}}.<span>{{musicItem.title}}</span></p>
+                </router-link>
               </ul>
             </div>
         </div>
@@ -96,26 +96,33 @@
 export default{
   data () {
     return {
-      paihang: {},
-      gequpaihang: {
-        gequpaihangOne: '',
-        gequpaihangTwo: '',
-        gequpaihangThree: ''
-      }
+      idx: '',
+      musicRank: []
     }
   },
+  methods: {},
   mounted () {
-    this.$http.get('top/list', {
-      params: {
-        idx: 2
-      }
-    }).then(res => {
-      this.paihang = res.body.result.name
-      this.gequpaihang.gequpaihangOne = res.body.result.tracks[0].name
-      this.gequpaihang.gequpaihangTwo = res.body.result.tracks[1].name
-      this.gequpaihang.gequpaihangThree = res.body.result.tracks[2].name
-      console.log(this.gequpaihang.gequpaihangOne)
-    })
+    for (let i = 0; i < 5; i++) {
+      ((index) => {
+        this.$http.get('top/list', {
+          params: {
+            idx: index
+          }
+        }).then(res => {
+          this.musicRank.push({
+            id: index,
+            title: res.body.result.name,
+            coverImgUrl: res.body.result.coverImgUrl,
+            playCount: res.body.result.playCount,
+            top3: [
+             {id: res.body.result.tracks[0].id, title: res.body.result.tracks[0].name},
+             {id: res.body.result.tracks[1].id, title: res.body.result.tracks[1].name},
+             {id: res.body.result.tracks[2].id, title: res.body.result.tracks[2].name}
+            ]
+          })
+        })
+      })(i)
+    }
   }
 }
 </script>
