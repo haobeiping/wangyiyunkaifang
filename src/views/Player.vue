@@ -3,23 +3,24 @@
     <div class="body">
       <header class="header">
           <router-link  :to="{name: 'homepage'}">
-            <img class="back" src="../images/返回.png" height="25px" width="25" alt=""> 
+            <img class="back" src="../images/返回.png" height="25px" width="25" > 
           </router-link>   
-          <div class="ath">     
-            <h1 style="font-size:20px">{{musicInfo.name}}</h1>
+          <div class="ath" >     
+            <h1 style="font-size:14px" >{{musicInfo.name}}</h1>
             <div>
-              <template v-for="ar in musicInfo.ar">{{ar.name}} </template>
+              <template v-for=" ar in musicInfo.ar" >{{ar.name}} </template>
             </div> 
           </div>
-           <img class="fenxiang" src="../images/分享.png" height="200" width="200" alt="">
+           <img class="fenxiang" src="../images/分享.png" height="200" width="200" >
       </header>
       <div class="pic"  v-show="show"  @click="show = false , stop=true" >
         <img :style="{'animation-play-state': playing ? 'running' : 'paused'}" v-if="musicInfo.al" :src="musicInfo.al.picUrl" >
       </div>
-      <transition name="fade">
-      <div class="Lyrics_list" v-show="stop"  @click="show = true , stop=false"  >
-          <ul ref="lry_wrapper">
-            <li v-for="(item,index) in lyricsArr" :class="{'current': currentLyricsLiIndex == index}">{{item.text}}</li>
+      <transition name="fade" >
+      <div class="Lyrics_list" v-show="stop"  @click="show = true , stop=false" >
+          <ul ref="lry_wrapper" >
+            <li v-for="(item,index) in lyricsArr" :class="{'current': currentLyricsLiIndex == index}" > {{item.text}}</li>
+            <li class="null" v-if="item.text" = " ">暂无歌词，稍后录入</li>
           </ul>
       </div>
       </transition>
@@ -165,7 +166,7 @@
     position: absolute;
     left: 50%;
     transform: translate( -50%);
-    height: 360px;
+    height: 310px;
     overflow: hidden;
     color: #999;
     line-height: 35px;
@@ -177,6 +178,12 @@
   }
   .Lyrics_list ul li{
     text-align: center;
+  }
+  .Lyrics_list ul  p{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
   }
   .current{
     color: #fff;

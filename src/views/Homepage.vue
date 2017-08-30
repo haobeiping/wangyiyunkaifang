@@ -3,8 +3,16 @@
   <header>
     <form class='head'>
       <img  class='Microphone' src='../images/话筒.png' >
-      <input type='text' class='search'>
+      <input type='text' class='search' v-model="search">
       <img class='sound' src='../images/声音 .png' height='25' width='27' alt=''>
+      <div class="search_box">
+        <ul>
+          <li id="search_result" v-for="item in serachResult">
+           {{item.name}}
+         </li>
+        </ul>
+      </div>
+     
     </form>
   </header>
   <div class='toped'>
@@ -96,11 +104,27 @@
 export default{
   data () {
     return {
+      serachResult: '',
+      myDate: '',
+      search: '',
       idx: '',
       musicRank: []
     }
   },
-  methods: {},
+  methods: {
+    showresouInput (value) {
+      this.serachResult = value
+    }
+  },
+  watch: {
+    search: function () {
+      if (this.search !== '') {
+        this.$http.get('search?keywords=' + this.search).then((response) => {
+          this.serachResult = response.body.songs.name
+        })
+      }
+    }
+  },
   mounted () {
     for (let i = 0; i < 5; i++) {
       ((index) => {
@@ -146,6 +170,8 @@ body ul li{
     border-radius: 11px;
 }
   .search_box{
+    width: 200px;
+    height: 200px;
     text-align: center;
 }
   .head .Microphone{
@@ -233,6 +259,8 @@ body ul li{
     padding: 0px;
   }
   .list li{
+    padding: 10px;
+    margin-bottom: 10px;
     float: left;
   }
   .title{
@@ -240,15 +268,22 @@ body ul li{
     text-align: center;
     width: 70%;
   }
+  .title h4{
+    font-weight: 500;
+  }
   .title ul{
     padding: 0;
     margin-top: -8px;
     overflow: hidden;
    }
   .title ul li{
+    margin:0px;
+    overflow: hidden;
+    padding: 0px;
     float: left;
   }
   .title ul li p{
+    font-size: 14px;
     margin: 0px;
   }
   .title_font{
@@ -256,4 +291,9 @@ body ul li{
     text-align: center;
     font-size: 21px;
   }
+  #search_result{
+  width: 220px;
+  height: 50px;
+  font-size: 14px;
+}
 </style>
